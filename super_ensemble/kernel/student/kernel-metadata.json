@@ -1,0 +1,27 @@
+{
+  "id": "bikashsah1230/rsna-knee-student",
+  "title": "RSNA Knee Student",
+  "code_file": "rsna-knee-student.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": true,
+  "machine_shape": "NvidiaTeslaT4",
+  "dataset_sources": [
+    "goodpjw2008/rsna-knee-2-5d-convnext-reader",
+    "stevenleehans/rsna-knee-llm-report-labels",
+    "pilkwang/rsna-knee-llm-labels",
+    "lixin73/rsna-knee-llm-report-labels-sol56",
+    "laymond/rsna-knee-abnormality-qwen3-8b-weak-labels"
+  ],
+  "competition_sources": [
+    "rsna-knee-abnormality-detection"
+  ],
+  "kernel_sources": [
+    "bikashsah1230/rsna-knee-teacher-r7oof",
+    "bikashsah1230/rsna-knee-teacher-r7oof-b"
+  ],
+  "model_sources": []
+}

@@ -1,0 +1,6 @@
+super_ensemble/runs/
+super_ensemble/kernel/*/*.ipynb
+__pycache__/
+*.pyc
+.DS_Store
+.venv*/

@@ -1,0 +1,19 @@
+{
+  "id": "bikashsah1230/rsna-knee-decode-timing",
+  "title": "RSNA Knee Decode Timing",
+  "code_file": "rsna-knee-decode-timing.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": false,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "dataset_sources": [
+    "heliosli/rsna-orthofoundation-fold0-epoch7-20261004"
+  ],
+  "competition_sources": [
+    "rsna-knee-abnormality-detection"
+  ],
+  "kernel_sources": [],
+  "model_sources": []
+}

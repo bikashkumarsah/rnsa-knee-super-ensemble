@@ -1,0 +1,21 @@
+{
+  "id": "bikashsah1230/rsna-knee-teacher-r7oof-b",
+  "title": "RSNA Knee Teacher R7OOF B",
+  "code_file": "rsna-knee-teacher-r7oof-b.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "machine_shape": "NvidiaTeslaT4",
+  "dataset_sources": [
+    "heliosli/rsna-knee-r6-frozen-fe055406",
+    "heliosli/rsna-orthofoundation-fold0-epoch7-20261004"
+  ],
+  "competition_sources": [
+    "rsna-knee-abnormality-detection"
+  ],
+  "kernel_sources": [],
+  "model_sources": []
+}

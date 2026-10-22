@@ -1,0 +1,25 @@
+{
+  "id": "bikashsah1230/rsna-knee-super-ensemble",
+  "title": "RSNA Knee Super Ensemble",
+  "code_file": "rsna-knee-super-ensemble.ipynb",
+  "language": "python",
+  "kernel_type": "notebook",
+  "is_private": true,
+  "enable_gpu": true,
+  "enable_tpu": false,
+  "enable_internet": false,
+  "machine_shape": "NvidiaTeslaT4",
+  "dataset_sources": [
+    "nartaa/rsna-knee-publication-swa-weights-20261007",
+    "heliosli/rsna-knee-r6-frozen-fe055406",
+    "heliosli/rsna-orthofoundation-fold0-epoch7-20261004",
+    "nartaa/rsna-knee-s6fall-weights",
+    "heliosli/rsna-knee-compact-v1",
+    "heliosli/rsna-knee-r6-frozen-fe055406-w1"
+  ],
+  "competition_sources": [
+    "rsna-knee-abnormality-detection"
+  ],
+  "kernel_sources": [],
+  "model_sources": []
+}
