@@ -29,3 +29,27 @@ numbers are optimistic because nartaa selected its checkpoints on them.
 | 2026-10-20 | super-ensemble-v4b | kernel `rsna-knee-super-ensemble` v4, submission 57451999 | v3 + the student at 0.15 of the ConvNeXt slot (R6 flip 0.51, S6F 0.34, student 0.15) + goodpjw2008's own reader as a third slot at heliosli's per-finding weights (0.003-0.035) | n/a | 0.9364 | **0.957** (below v3: the student costs ~0.001, as gold-58 suggested) | commit run (3 studies): Raptor-384 162 s, Raptor-224 88 s, S6F 166 s, student 36 s, reader 130 s, R6 flip 644 s; all six members coverage 1.0, three slots, no fallback |
 | 2026-10-20 | super-ensemble-v3r | kernel `rsna-knee-super-ensemble-probe` v3, submission 57449314 | v3 + goodpjw2008's reader only (no student): with v4b it separates the reader's share from the student's | n/a | 0.9378 | **0.958**, tied with v3; the team's public-board submission stays v3 (57435077), so v3's unrounded score is at least v3r's: the reader adds nothing visible | commit run: reader 3 folds at 384 px scored 3/3 in 48 s; members r384 + r224 + r6f + s6f + rdr, coverage 1.0, no fallback |
 | 2026-10-20 | convnext-only-hedge-v4 | kernel `rsna-knee-super-ensemble-convnext` v3 | non-OAI hedge on the v4 ConvNeXt slot: R6 flip 0.51 + S6F 0.34 + student 0.15, plus goodpjw2008's reader slot; no Raptor | n/a | 0.9389 (hedge v3: 0.9393) | **0.955** (submission 57457062), tied with hedge v3; final hedge = the simpler hedge v3 (57443351) | commit run: members r6f + s6f + stu + rdr, coverage 1.0, no fallback |
+| 2026-10-22 | super-ensemble-v5a | kernel `rsna-knee-super-ensemble-probe` v4 | last-day variant: v3 with heliosli's per-finding CoAtNet weights lowered uniformly by 0.05 (base 0.45; Lateral OA 0.10, PF OA 0.60, Synovitis 0.80, Baker's 0.25) -- our ConvNeXt slot holds S6F too, so it is stronger than his; one parameter, not per-finding tuning | n/a | 0.9384 (v3 0.9377) | pending (submission 57531086, 16:09 UTC) | commit run: 4 members, coverage 1.0 |
+| 2026-10-22 | super-ensemble-v5b | kernel `rsna-knee-super-ensemble-probe2` v1 | as v5a, lowered by 0.10 (base 0.40; Lateral OA 0.05, PF OA 0.55, Synovitis 0.75, Baker's 0.20) | n/a | 0.9397 | pending (submission 57530174, 15:37 UTC) | commit run: 4 members, coverage 1.0 |
+
+## Final results (competition ended 2026-10-22 23:59 UTC; private leaderboard preliminary until Kaggle verifies it)
+
+**Private leaderboard: rank 483 of 6,425, 0.943, bronze medal** (submission 57530174, v5b; public rank 374, 0.958).
+Private medal lines: gold to rank 22 (0.954), silver to rank 321 (0.943), bronze to rank 642 (0.942).
+
+| submission | blend | public | private |
+|---|---|---|---|
+| 55687359 / 55692837 / 55721075 / 55731024 | own DINOv2 line, runs 1-4 | 0.835 / 0.877 / 0.883 / 0.887 | 0.818 / 0.862 / 0.867 / 0.871 |
+| 57219200 / 57221549 / 57222270 | v1 / v2 / probe 0.3 (CoAtNet pair + R7 + S6F) | 0.957 | 0.941 / 0.942 / 0.942 |
+| 57435035 | frontier replica (CoAtNet pair + R6 flip, heliosli's weights) | 0.957 | 0.942 |
+| 57435077 | v3 (+ S6F) | 0.958 | 0.942 |
+| 57449314 | v3 + reader | 0.958 | 0.942 |
+| 57451999 | v4b (+ student + reader) | 0.957 | 0.942 |
+| 57531086 | v5a (CoAtNet share −0.05) | 0.957 | 0.941 |
+| **57530174** | **v5b (CoAtNet share −0.10)** | **0.958** | **0.943** (counted) |
+| 57221968 / 57443351 / 57457062 | non-OAI hedges (no CoAtNets) | 0.955 | 0.941 / 0.942 / 0.942 |
+
+What the private split says: every blend lands within 0.941-0.943, so the differences are at the noise level of ~900
+studies; the non-OAI hedges (0.942) match the full blends (0.942) privately although they trailed by 0.003 publicly;
+and the one variant that moved weight from the CoAtNets to the ConvNeXt slot, which is the direction the 58 labelled
+studies pointed, was the best private score.

@@ -198,3 +198,11 @@ Executed plan (details in `KAGGLE_RUNBOOK.md` §5b and `10_experiments/EXPERIMEN
   expected blend, plus the non-OAI hedge 57443351 (R6 flip + S6F; hedge v4 tied at 0.955 with the student that cost
   v4b 0.001) in case OAI-trained
   weights are ruled out. Two near-identical OAI blends would add almost no protection.
+
+## Final standing (2026-10-23, private leaderboard preliminary)
+
+**Private 0.943, rank 483 of 6,425, bronze** (public 0.958, rank 374), counted from submission 57530174: v5b, the
+last-day variant that lowered heliosli's per-finding CoAtNet weights by 0.10. On the private split every blend scored
+0.941-0.943 and the non-OAI hedges (0.942) matched the full blends, so the CoAtNets' +0.003 on the public board did not
+carry over; moving weight towards the ConvNeXt slot, which the 58 labelled studies favoured, scored best. The winner
+scored 0.960 privately; silver ended at rank 321 (0.943), bronze at rank 642 (0.942).

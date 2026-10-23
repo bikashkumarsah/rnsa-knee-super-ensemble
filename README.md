@@ -1,4 +1,4 @@
-# RSNA 2026 Knee Abnormality Detection — super-ensemble solution (public LB 0.958)
+# RSNA 2026 Knee Abnormality Detection — super-ensemble solution (private LB 0.943, bronze)
 
 My solution to the Kaggle code competition
 [RSNA Knee Abnormality Detection](https://www.kaggle.com/competitions/rsna-knee-abnormality-detection): predict 12
@@ -7,8 +7,9 @@ knee MRI studies, scored by macro ROC AUC. Inference runs in a Kaggle notebook: 
 hidden test set of ~1,300 studies. Only 58 training studies carry radiologist labels; the other ~4,350 have free-text
 reports from which labels have to be derived.
 
-**Result: public leaderboard 0.958** (submission 57435077; rank 570 of 6,302 teams on 2026-10-21, top 10 %), up from
-0.887 for my own DINOv2 pipeline. The private leaderboard is published after the deadline.
+**Result: private leaderboard 0.943, rank 483 of 6,425 teams, bronze medal** (preliminary until Kaggle verifies the
+results; public 0.958, rank 374). The counted submission is v5b (`FINAL_NOTEBOOK_v5b.ipynb`), up from 0.871 private
+(0.887 public) for my own DINOv2 pipeline. The private winner scored 0.960.
 
 ## Approach in one picture
 
@@ -43,20 +44,25 @@ around them and the evidence for every choice:
 - **Kaggle CLI automation** (`kaggle_flow.py`): push (accelerator pinned, quota-aware run caps), wait, fetch logs and
   outputs, submit, wait for scores.
 
-## Results (public leaderboard)
+## Results
 
-| submission | what changed | public LB |
-|---|---|---|
-| own DINOv2 line, runs 1-4 | hierarchical MIL on DINOv2-S, LLM report labels | 0.835 → 0.877 → 0.883 → **0.887** |
-| super-ensemble v1 / v2 | CoAtNet pair + R7 + S6F (slots 0.5 / 0.4) | 0.957 / 0.957 |
-| frontier replica | CoAtNet pair + R6 flip TTA, heliosli's per-finding weights | 0.957 |
-| **v3** | the replica + **S6F** in the ConvNeXt slot | **0.958** |
-| v3 + goodpjw2008 reader | third slot at 0.3-3.5 % per finding | 0.958 (not above v3 unrounded) |
-| v4b | v3 + my student at 0.15 of the ConvNeXt slot + reader | 0.957 |
-| non-OAI hedges | ConvNeXt members only (no OAI-trained weights) | 0.955 |
+| submission | what changed | public LB | private LB |
+|---|---|---|---|
+| own DINOv2 line, runs 1-4 | hierarchical MIL on DINOv2-S, LLM report labels | 0.835 → 0.877 → 0.883 → 0.887 | 0.818 → 0.862 → 0.867 → 0.871 |
+| super-ensemble v1 / v2 | CoAtNet pair + R7 + S6F (slots 0.5 / 0.4) | 0.957 / 0.957 | 0.941 / 0.942 |
+| frontier replica | CoAtNet pair + R6 flip TTA, heliosli's per-finding weights | 0.957 | 0.942 |
+| v3 | the replica + S6F in the ConvNeXt slot | 0.958 | 0.942 |
+| v3 + goodpjw2008 reader | third slot at 0.3-3.5 % per finding | 0.958 | 0.942 |
+| v4b | v3 + my student at 0.15 of the ConvNeXt slot + reader | 0.957 | 0.942 |
+| v5a | v3 with the CoAtNet share lowered by 0.05 | 0.957 | 0.941 |
+| **v5b** | **v3 with the CoAtNet share lowered by 0.10** | **0.958** | **0.943** (final) |
+| non-OAI hedges | ConvNeXt members only (no OAI-trained weights) | 0.955 | 0.941-0.942 |
 
 What the measurements say (details in `_analysis/SUPER_ENSEMBLE_RUNS.md` and `_analysis/PATH_TO_0960_REVIEW.md`):
 
+- On the private split every blend scored 0.941-0.943: the differences are at the noise level of ~900 studies. The
+  non-OAI hedges matched the full blends privately (0.942) although they trailed by 0.003 publicly, and the variant
+  that moved weight from the CoAtNets to the ConvNeXt slot, the direction the 58 labelled studies pointed, scored best.
 - S6F, trained on a different label set, was the one addition that moved the public score (+0.001 next to R6).
 - R6 and R7 are near-duplicates (rank correlation 0.979 on the labelled studies), so running both buys nothing.
 - My student reached a clean 0.916 macro AUC on the 58 labelled studies (goodpjw2008's original: 0.911). That is
@@ -69,7 +75,8 @@ What the measurements say (details in `_analysis/SUPER_ENSEMBLE_RUNS.md` and `_a
 
 | path | contents |
 |---|---|
-| `BEST_NOTEBOOK_RSNA_KNEE.ipynb` | the v3 submission notebook (generated) |
+| `FINAL_NOTEBOOK_v5b.ipynb` | the counted final submission (generated; `CONFIG['probe2']` in the builder) |
+| `BEST_NOTEBOOK_RSNA_KNEE.ipynb` | the v3 notebook (generated; `CONFIG['submit']`) |
 | `super_ensemble/build_notebook.py` | builds the notebook and every Kaggle kernel from `stages/` and `vendor/` (`CONFIG` = each kernel's members and weights) |
 | `super_ensemble/stages/` | setup and time plan, one file per member stage, teacher stage, student/reader stage, blend, gold-58 report |
 | `super_ensemble/student/` | student training (`train_student.py`) and inference (`student_infer.py`) |
